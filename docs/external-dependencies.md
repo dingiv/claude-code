@@ -4,28 +4,28 @@
 
 ## 总览表
 
-| # | 服务 | 远程端点 | 协议 | 状态 |
-|---|---|---|---|---|
-| 1 | Anthropic API | `api.anthropic.com` | HTTPS | 默认启用 |
-| 2 | AWS Bedrock | `bedrock-runtime.*.amazonaws.com` | HTTPS | 需 `CLAUDE_CODE_USE_BEDROCK=1` |
-| 3 | Google Vertex AI | `{region}-aiplatform.googleapis.com` | HTTPS | 需 `CLAUDE_CODE_USE_VERTEX=1` |
-| 4 | Azure Foundry | `{resource}.services.ai.azure.com` | HTTPS | 需 `CLAUDE_CODE_USE_FOUNDRY=1` |
-| 5 | OAuth (Anthropic) | `platform.claude.com`, `claude.com`, `claude.ai` | HTTPS | 用户登录时 |
-| 6 | GrowthBook | `api.anthropic.com` (remoteEval) | HTTPS | 默认启用 |
-| 7 | Sentry | 可配置 (`SENTRY_DSN`) | HTTPS | 需设环境变量 |
-| 8 | Datadog | 可配置 (`DATADOG_LOGS_ENDPOINT`) | HTTPS | 需设环境变量 |
-| 9 | OpenTelemetry Collector | 可配置 (`OTEL_EXPORTER_OTLP_ENDPOINT`) | gRPC/HTTP | 需设环境变量 |
-| 10 | 1P Event Logging | `api.anthropic.com/api/event_logging/batch` | HTTPS | 默认启用 |
-| 11 | BigQuery Metrics | `api.anthropic.com/api/claude_code/metrics` | HTTPS | 默认启用 |
-| 12 | MCP Proxy | `mcp-proxy.anthropic.com` | HTTPS+WS | 使用 MCP 工具时 |
-| 13 | MCP Registry | `api.anthropic.com/mcp-registry` | HTTPS | 查询 MCP 服务器时 |
-| 14 | Web Search Pages | `www.bing.com`, `search.brave.com` | HTTPS | WebSearch 工具，可通过 `WEB_SEARCH_ADAPTER=bing|brave` 切换 |
-| 15 | Google Cloud Storage (更新) | `storage.googleapis.com` | HTTPS | 版本检查 |
-| 16 | GitHub Raw (Changelog/Stats) | `raw.githubusercontent.com` | HTTPS | 更新提示 |
-| 17 | Claude in Chrome Bridge | `bridge.claudeusercontent.com` | WSS | Chrome 集成 |
-| 18 | CCR Upstream Proxy | `api.anthropic.com` | WS | CCR 远程会话 |
-| 19 | Voice STT | `api.anthropic.com/api/ws/...` | WSS | Voice Mode |
-| 20 | Desktop App Download | `claude.ai/api/desktop/...` | HTTPS | 下载引导 |
+| #   | 服务                         | 远程端点                                         | 协议      | 状态                                            |
+| --- | ---------------------------- | ------------------------------------------------ | --------- | ----------------------------------------------- |
+| 1   | Anthropic API                | `api.anthropic.com`                              | HTTPS     | 默认启用                                        |
+| 2   | AWS Bedrock                  | `bedrock-runtime.*.amazonaws.com`                | HTTPS     | 需 `CLAUDE_CODE_USE_BEDROCK=1`                  |
+| 3   | Google Vertex AI             | `{region}-aiplatform.googleapis.com`             | HTTPS     | 需 `CLAUDE_CODE_USE_VERTEX=1`                   |
+| 4   | Azure Foundry                | `{resource}.services.ai.azure.com`               | HTTPS     | 需 `CLAUDE_CODE_USE_FOUNDRY=1`                  |
+| 5   | OAuth (Anthropic)            | `platform.claude.com`, `claude.com`, `claude.ai` | HTTPS     | 用户登录时                                      |
+| 6   | GrowthBook                   | `api.anthropic.com` (remoteEval)                 | HTTPS     | 默认启用                                        |
+| 7   | Sentry                       | 可配置 (`SENTRY_DSN`)                            | HTTPS     | 需设环境变量                                    |
+| 8   | Datadog                      | 可配置 (`DATADOG_LOGS_ENDPOINT`)                 | HTTPS     | 需设环境变量                                    |
+| 9   | OpenTelemetry Collector      | 可配置 (`OTEL_EXPORTER_OTLP_ENDPOINT`)           | gRPC/HTTP | 需设环境变量                                    |
+| 10  | 1P Event Logging             | `api.anthropic.com/api/event_logging/batch`      | HTTPS     | 默认启用                                        |
+| 11  | BigQuery Metrics             | `api.anthropic.com/api/claude_code/metrics`      | HTTPS     | 默认启用                                        |
+| 12  | MCP Proxy                    | `mcp-proxy.anthropic.com`                        | HTTPS+WS  | 使用 MCP 工具时                                 |
+| 13  | MCP Registry                 | `api.anthropic.com/mcp-registry`                 | HTTPS     | 查询 MCP 服务器时                               |
+| 14  | Web Search Pages             | `www.bing.com`, `search.brave.com`               | HTTPS     | WebSearch 工具，可通过 `WEB_SEARCH_ADAPTER=bing | brave` 切换 |
+| 15  | Google Cloud Storage (更新)  | `storage.googleapis.com`                         | HTTPS     | 版本检查                                        |
+| 16  | GitHub Raw (Changelog/Stats) | `raw.githubusercontent.com`                      | HTTPS     | 更新提示                                        |
+| 17  | Claude in Chrome Bridge      | `bridge.claudeusercontent.com`                   | WSS       | Chrome 集成                                     |
+| 18  | CCR Upstream Proxy           | `api.anthropic.com`                              | WS        | CCR 远程会话                                    |
+| 19  | Voice STT                    | `api.anthropic.com/api/ws/...`                   | WSS       | Voice Mode                                      |
+| 20  | Desktop App Download         | `claude.ai/api/desktop/...`                      | HTTPS     | 下载引导                                        |
 
 ---
 
@@ -175,40 +175,40 @@ WebSearch 工具支持直接抓取 Bing 搜索结果页面，也支持通过 Bra
 
 以下端点都挂在 `api.anthropic.com` 上，按功能分类:
 
-| 端点路径 | 用途 | 文件 |
-|---|---|---|
-| `/api/event_logging/batch` | 事件批量上报 | `src/services/analytics/firstPartyEventLoggingExporter.ts` |
-| `/api/claude_code/metrics` | BigQuery 指标导出 | `src/utils/telemetry/bigqueryExporter.ts` |
-| `/api/oauth/claude_cli/create_api_key` | 创建 API Key | `src/constants/oauth.ts` |
-| `/api/oauth/claude_cli/roles` | 获取用户角色 | `src/constants/oauth.ts` |
-| `/api/oauth/accounts/grove` | 通知设置 | `src/services/api/grove.ts` |
-| `/api/oauth/organizations/{id}/referral/*` | 推荐活动 | `src/services/api/referral.ts` |
-| `/api/oauth/organizations/{id}/overage_credit_grant` | 超额信用 | `src/services/api/overageCreditGrant.ts` |
-| `/api/oauth/organizations/{id}/admin_requests` | 管理请求 | `src/services/api/adminRequests.ts` |
-| `/api/web/domain_info?domain={}` | 域名安全检查 | `src/tools/WebFetchTool/utils.ts` |
-| `/api/claude_code/settings` | 设置同步 | `src/services/settingsSync/index.ts` |
-| `/api/claude_code/managed_settings` | 企业托管设置 (1h 轮询) | `src/services/remoteManagedSettings/index.ts` |
-| `/api/claude_code/team_memory?repo={}` | 团队记忆同步 | `src/services/teamMemorySync/index.ts` |
-| `/api/auth/trusted_devices` | 可信设备注册 | `src/bridge/trustedDevice.ts` |
-| `/api/organizations/{id}/claude_code/buddy_react` | Companion 反应 | `src/buddy/companionReact.ts` |
-| `/mcp-registry/v0/servers` | MCP 服务器注册表 | `src/services/mcp/officialRegistry.ts` |
-| `/v1/files` | 文件上传/下载 | `src/services/api/filesApi.ts` |
-| `/v1/sessions/{id}/events` | 会话历史 | `src/assistant/sessionHistory.ts` |
-| `/v1/code/triggers` | 远程触发器 | `src/tools/RemoteTriggerTool/RemoteTriggerTool.ts` |
-| `/v1/organizations/{id}/mcp_servers` | 组织 MCP 配置 | `src/services/mcp/claudeai.ts` |
+| 端点路径                                             | 用途                   | 文件                                                       |
+| ---------------------------------------------------- | ---------------------- | ---------------------------------------------------------- |
+| `/api/event_logging/batch`                           | 事件批量上报           | `src/services/analytics/firstPartyEventLoggingExporter.ts` |
+| `/api/claude_code/metrics`                           | BigQuery 指标导出      | `src/utils/telemetry/bigqueryExporter.ts`                  |
+| `/api/oauth/claude_cli/create_api_key`               | 创建 API Key           | `src/constants/oauth.ts`                                   |
+| `/api/oauth/claude_cli/roles`                        | 获取用户角色           | `src/constants/oauth.ts`                                   |
+| `/api/oauth/accounts/grove`                          | 通知设置               | `src/services/api/grove.ts`                                |
+| `/api/oauth/organizations/{id}/referral/*`           | 推荐活动               | `src/services/api/referral.ts`                             |
+| `/api/oauth/organizations/{id}/overage_credit_grant` | 超额信用               | `src/services/api/overageCreditGrant.ts`                   |
+| `/api/oauth/organizations/{id}/admin_requests`       | 管理请求               | `src/services/api/adminRequests.ts`                        |
+| `/api/web/domain_info?domain={}`                     | 域名安全检查           | `src/tools/WebFetchTool/utils.ts`                          |
+| `/api/claude_code/settings`                          | 设置同步               | `src/services/settingsSync/index.ts`                       |
+| `/api/claude_code/managed_settings`                  | 企业托管设置 (1h 轮询) | `src/services/remoteManagedSettings/index.ts`              |
+| `/api/claude_code/team_memory?repo={}`               | 团队记忆同步           | `src/services/teamMemorySync/index.ts`                     |
+| `/api/auth/trusted_devices`                          | 可信设备注册           | `src/bridge/trustedDevice.ts`                              |
+| `/api/organizations/{id}/claude_code/buddy_react`    | Companion 反应         | `src/buddy/companionReact.ts`                              |
+| `/mcp-registry/v0/servers`                           | MCP 服务器注册表       | `src/services/mcp/officialRegistry.ts`                     |
+| `/v1/files`                                          | 文件上传/下载          | `src/services/api/filesApi.ts`                             |
+| `/v1/sessions/{id}/events`                           | 会话历史               | `src/assistant/sessionHistory.ts`                          |
+| `/v1/code/triggers`                                  | 远程触发器             | `src/tools/RemoteTriggerTool/RemoteTriggerTool.ts`         |
+| `/v1/organizations/{id}/mcp_servers`                 | 组织 MCP 配置          | `src/services/mcp/claudeai.ts`                             |
 
 ## 非 Anthropic 远程域名汇总
 
-| 域名 | 服务 | 协议 |
-|---|---|---|
-| `bedrock-runtime.*.amazonaws.com` | AWS Bedrock | HTTPS |
-| `{region}-aiplatform.googleapis.com` | Google Vertex AI | HTTPS |
-| `{resource}.services.ai.azure.com` | Azure Foundry | HTTPS |
-| `www.bing.com` | Bing 搜索 | HTTPS |
-| `search.brave.com` | Brave 搜索 | HTTPS |
-| `storage.googleapis.com` | 自动更新 | HTTPS |
-| `raw.githubusercontent.com` | Changelog / 插件统计 | HTTPS |
-| `bridge.claudeusercontent.com` | Chrome Bridge | WSS |
-| `platform.claude.com` | OAuth 授权页 | HTTPS |
-| `claude.com` / `claude.ai` | OAuth / 下载 | HTTPS |
-| `claude.fedstart.com` | FedStart OAuth | HTTPS |
+| 域名                                 | 服务                 | 协议  |
+| ------------------------------------ | -------------------- | ----- |
+| `bedrock-runtime.*.amazonaws.com`    | AWS Bedrock          | HTTPS |
+| `{region}-aiplatform.googleapis.com` | Google Vertex AI     | HTTPS |
+| `{resource}.services.ai.azure.com`   | Azure Foundry        | HTTPS |
+| `www.bing.com`                       | Bing 搜索            | HTTPS |
+| `search.brave.com`                   | Brave 搜索           | HTTPS |
+| `storage.googleapis.com`             | 自动更新             | HTTPS |
+| `raw.githubusercontent.com`          | Changelog / 插件统计 | HTTPS |
+| `bridge.claudeusercontent.com`       | Chrome Bridge        | WSS   |
+| `platform.claude.com`                | OAuth 授权页         | HTTPS |
+| `claude.com` / `claude.ai`           | OAuth / 下载         | HTTPS |
+| `claude.fedstart.com`                | FedStart OAuth       | HTTPS |
