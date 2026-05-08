@@ -14,17 +14,17 @@ query() → queryLoop()（Agent 循环层）
 
 ## 核心文件
 
-| 文件 | 行数 | 职责 |
-|------|------|------|
-| `src/QueryEngine.ts` | 1367 | 会话生命周期管理，submitMessage 入口 |
-| `src/screens/REPL.tsx` | — | 终端 UI，驱动输入和显示 |
-| `src/bootstrap/state.ts` | — | 会话级全局状态（session ID、CWD、token 计数） |
-| `src/state/AppState.tsx` | — | 中心状态类型和 Context Provider |
-| `src/state/store.ts` | — | Zustand 风格 Store |
-| `src/utils/sessionStorage.ts` | — | 消息持久化到 JSONL transcript |
-| `src/utils/sessionRestore.ts` | — | 会话恢复（--resume） |
-| `src/utils/handlePromptSubmit.ts` | — | 输入处理协调 |
-| `src/utils/QueryGuard.ts` | — | 查询并发控制和取消 |
+| 文件                              | 行数 | 职责                                          |
+| --------------------------------- | ---- | --------------------------------------------- |
+| `src/QueryEngine.ts`              | 1367 | 会话生命周期管理，submitMessage 入口          |
+| `src/screens/REPL.tsx`            | —    | 终端 UI，驱动输入和显示                       |
+| `src/bootstrap/state.ts`          | —    | 会话级全局状态（session ID、CWD、token 计数） |
+| `src/state/AppState.tsx`          | —    | 中心状态类型和 Context Provider               |
+| `src/state/store.ts`              | —    | Zustand 风格 Store                            |
+| `src/utils/sessionStorage.ts`     | —    | 消息持久化到 JSONL transcript                 |
+| `src/utils/sessionRestore.ts`     | —    | 会话恢复（--resume）                          |
+| `src/utils/handlePromptSubmit.ts` | —    | 输入处理协调                                  |
+| `src/utils/QueryGuard.ts`         | —    | 查询并发控制和取消                            |
 
 ## QueryEngine：会话控制器
 

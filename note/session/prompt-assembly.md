@@ -1,7 +1,5 @@
 # Prompt 拼装
 
-## 总览
-
 Claude Code 的 prompt 由三部分拼接，每部分有独立的收集时机和缓存策略：
 
 ```
@@ -11,17 +9,15 @@ Claude Code 的 prompt 由三部分拼接，每部分有独立的收集时机和
 └─ messages[1..n]: 对话历史 + 工具结果
 ```
 
-## 核心文件
-
-| 文件 | 职责 |
-|------|------|
-| `src/utils/queryContext.ts` | fetchSystemPromptParts() — 三件套的统一入口 |
-| `src/constants/prompts.ts` | getSystemPrompt() — 核心系统 prompt 的段落组装 |
-| `src/context.ts` | getSystemContext() / getUserContext() — git 状态和 CLAUDE.md |
-| `src/utils/claudemd.ts` | CLAUDE.md 文件发现、加载、合并 |
-| `src/utils/api.ts` | prependUserContext / appendSystemContext / toolToAPISchema |
-| `src/services/api/claude.ts` | buildSystemPromptBlocks / addCacheBreakpoints |
-| `src/utils/messages.ts` | normalizeMessagesForAPI |
+| 文件                         | 职责                                                         |
+| ---------------------------- | ------------------------------------------------------------ |
+| `src/utils/queryContext.ts`  | fetchSystemPromptParts() — 三件套的统一入口                  |
+| `src/constants/prompts.ts`   | getSystemPrompt() — 核心系统 prompt 的段落组装               |
+| `src/context.ts`             | getSystemContext() / getUserContext() — git 状态和 CLAUDE.md |
+| `src/utils/claudemd.ts`      | CLAUDE.md 文件发现、加载、合并                               |
+| `src/utils/api.ts`           | prependUserContext / appendSystemContext / toolToAPISchema   |
+| `src/services/api/claude.ts` | buildSystemPromptBlocks / addCacheBreakpoints                |
+| `src/utils/messages.ts`      | normalizeMessagesForAPI                                      |
 
 ## 三件套收集
 
